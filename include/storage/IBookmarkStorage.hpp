@@ -1,6 +1,6 @@
 #pragma once
 
-#include "storage/Bookmark.hpp"
+#include "core/Bookmark.hpp"
 
 #include <cstddef>
 #include <optional>
