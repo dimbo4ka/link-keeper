@@ -23,7 +23,14 @@ FetchContent_Declare(
     GIT_TAG 3.3.2
     GIT_SHALLOW FALSE
 )
-
 FetchContent_MakeAvailable(SQLiteCpp)
+
+
+FetchContent_Declare(
+    argparser
+    GIT_REPOSITORY https://github.com/dimbo4ka/arg-parser.git
+    GIT_TAG main 
+)
+FetchContent_MakeAvailable(argparser)
 
 add_subdirectory(src)
