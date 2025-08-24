@@ -11,6 +11,8 @@ public:
     const std::string& title() const;
     const std::string& url() const;
     const std::vector<std::string>& tags() const;
+
+    void Print() const;
     
 private:
     std::string title_;

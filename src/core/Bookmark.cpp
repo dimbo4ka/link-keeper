@@ -1,5 +1,7 @@
 #include "core/Bookmark.hpp"
 
+#include <iostream>
+
 Bookmark::Bookmark(Bookmark::Builder builder)
         : title_(std::move(builder.title()))
         , url_(std::move(builder).url())
@@ -46,4 +48,14 @@ std::vector<std::string>& Bookmark::Builder::tags() {
 
 Bookmark Bookmark::Builder::build() {
     return Bookmark(*this);
+}
+
+void Bookmark::Print() const {
+    std::cout << "title: " << title_ << std::endl;
+    std::cout << "url: " << url_ << std::endl;
+    std::cout << "tags: ";
+    for (const auto& tag : tags_) {
+        std::cout << "#" << tag << " ";
+    }
+    std::cout << std::endl;
 }
