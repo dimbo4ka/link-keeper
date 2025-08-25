@@ -123,3 +123,19 @@ bool DBBookmarkStorage::SearchByTag(std::string tag) {
     }
     return false;
 }
+
+bool DBBookmarkStorage::SearchAll() {
+    try {
+        SQLite::Statement search_titles(database_, "SELECT title FROM bookmarks");
+        while (search_titles.executeStep()) {
+            std::string title = search_titles.getColumn(0).getString();
+            auto bookmark = GetBookmark(std::move(title));
+            bookmark->Print();
+            std::cout << std::endl;
+        }
+        return true;
+    } catch(std::exception& e) {
+        std::cerr << "Error searching bookmarks: " << e.what() << std::endl;
+    }
+    return false;
+}

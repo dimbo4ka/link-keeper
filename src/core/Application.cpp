@@ -13,6 +13,7 @@ Application::Application()
     arg_parser_.AddFlag('a', "add", "add bookmark");
     arg_parser_.AddFlag('g', "get", "get bookmark");
     arg_parser_.AddFlag('s', "search", "search bookmarks by tag");
+    arg_parser_.AddFlag('a', "all", "print all bookmarks");
 
     arg_parser_.AddStringArgument("title", "boomark title").Positional().Default("");
     arg_parser_.AddStringArgument("url", "boomark url").Default("");
@@ -58,6 +59,8 @@ bool Application::Run(int argc, char** argv) {
         return true;
     } else if (arg_parser_.GetFlag("search")) {
         return bookmark_storage->SearchByTag(std::move(title));
+    } else if (arg_parser_.GetFlag("all")) {
+        return bookmark_storage->SearchAll();
     }
     std::cerr << "Please enter the option\n";
     return false;
