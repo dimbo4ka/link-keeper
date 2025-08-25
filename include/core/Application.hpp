@@ -11,4 +11,5 @@ public:
 
 private:
     ArgumentParser::ArgParser arg_parser_;
+    ArgumentParser::Argument<std::string>& tags_;
 };

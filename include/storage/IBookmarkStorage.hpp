@@ -7,10 +7,9 @@
 
 class IBookmarkStorage {
 public:  
-    virtual bool DeleteBookmark(std::size_t id) = 0;
-    virtual bool AddBookMark() = 0;
-    virtual bool UpdateBookmark() = 0;
-    virtual std::optional<Bookmark> GetBookmark(std::size_t id) = 0;
+    virtual bool DeleteBookmark(std::string title) = 0;
+    virtual bool AddBookMark(Bookmark) = 0;
+    virtual std::optional<Bookmark> GetBookmark(std::string title) = 0;
 
     virtual ~IBookmarkStorage() = default;
 };
