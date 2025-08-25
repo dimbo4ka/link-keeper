@@ -1,5 +1,6 @@
 #include "storage/DBBookmarkStorage.hpp"
 
+#include <format>
 #include <iostream>
 
 DBBookmarkStorage::DBBookmarkStorage()
@@ -99,4 +100,42 @@ std::optional<Bookmark> DBBookmarkStorage::GetBookmark(std::string title) {
         std::cerr << "Error getting bookmark: " << e.what() << std::endl;
     }
     return std::nullopt;
+}
+
+bool DBBookmarkStorage::SearchByTag(std::string tag) {
+    try {
+        SQLite::Statement search_by_tag(database_, 
+                "SELECT title, url FROM bookmarks "
+                "JOIN bookmark_tags ON bookmarks.id = bookmark_tags.bookmark_id "
+                "JOIN tags ON tags.id = bookmark_tags.tag_id "
+                "WHERE tags.name = ?");
+        search_by_tag.bind(1, tag);
+    
+        std::cout << std::format("Bookmarks with tag \"{}\"", tag) << std::endl;
+        while (search_by_tag.executeStep()) {
+            std::string title = search_by_tag.getColumn(0).getString();
+            std::string url = search_by_tag.getColumn(1).getString();
+            std::cout << std::format("Title: {} | url: {}", title, url) << std::endl;
+        }
+        return true;
+    } catch (std::exception& e) {
+        std::cerr << "Error searching bookmarks: " << e.what() << std::endl;
+    }
+    return false;
+}
+
+bool DBBookmarkStorage::SearchAll() {
+    try {
+        SQLite::Statement search_titles(database_, "SELECT title FROM bookmarks");
+        while (search_titles.executeStep()) {
+            std::string title = search_titles.getColumn(0).getString();
+            auto bookmark = GetBookmark(std::move(title));
+            bookmark->Print();
+            std::cout << std::endl;
+        }
+        return true;
+    } catch(std::exception& e) {
+        std::cerr << "Error searching bookmarks: " << e.what() << std::endl;
+    }
+    return false;
 }
