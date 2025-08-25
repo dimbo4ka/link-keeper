@@ -9,6 +9,7 @@ public:
     bool DeleteBookmark(std::string title) override;
     bool AddBookMark(Bookmark) override;
     std::optional<Bookmark> GetBookmark(std::string title) override;
+    bool SearchByTag(std::string tag) override;
 
 private:
     SQLite::Database database_;
