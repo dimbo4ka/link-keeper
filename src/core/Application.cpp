@@ -13,7 +13,7 @@ Application::Application()
     arg_parser_.AddFlag('a', "add", "add bookmark");
     arg_parser_.AddFlag('g', "get", "get bookmark");
     arg_parser_.AddFlag('s', "search", "search bookmarks by tag");
-    arg_parser_.AddFlag('a', "all", "print all bookmarks");
+    arg_parser_.AddFlag("all", "print all bookmarks");
 
     arg_parser_.AddStringArgument("title", "boomark title").Positional().Default("");
     arg_parser_.AddStringArgument("url", "boomark url").Default("");
