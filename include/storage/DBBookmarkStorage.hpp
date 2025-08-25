@@ -1,12 +1,15 @@
 #include "IBookmarkStorage.hpp"
 
+#include "SQLiteCpp/SQLiteCpp.h"
+
 class DBBookmarkStorage : public IBookmarkStorage {
 public:
-    bool DeleteBookmark(std::size_t id) override;
-    bool AddBookMark() override;
-    bool UpdateBookmark() override;
-    std::optional<Bookmark> GetBookmark(std::size_t id) override;
+    DBBookmarkStorage();
+
+    bool DeleteBookmark(std::string title) override;
+    bool AddBookMark(Bookmark) override;
+    std::optional<Bookmark> GetBookmark(std::string title) override;
 
 private:
-    
+    SQLite::Database database_;
 };

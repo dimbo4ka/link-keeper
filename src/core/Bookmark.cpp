@@ -53,6 +53,9 @@ Bookmark Bookmark::Builder::build() {
 void Bookmark::Print() const {
     std::cout << "title: " << title_ << std::endl;
     std::cout << "url: " << url_ << std::endl;
+    if (tags_.empty())
+        return;
+
     std::cout << "tags: ";
     for (const auto& tag : tags_) {
         std::cout << "#" << tag << " ";
